@@ -39,7 +39,7 @@ interface RitualDeckProps {
   deckType?: 'digital' | 'physical';
 }
 
-export default function RitualDeck({ positions, onComplete, deckType = 'digital' }: RitualDeckProps) {
+export default function RitualDeck({ positions, onComplete }: RitualDeckProps) {
   const [phase, setPhase] = useState<'shuffling' | 'selecting' | 'revealing'>('shuffling');
   const [deck, setDeck] = useState<Card[]>([]);
   const [selectedCards, setSelectedCards] = useState<SelectedCard[]>([]);

@@ -176,7 +176,7 @@ export default function Preferences() {
         <h2 className="text-xl font-semibold text-ora-teal mb-4">Language</h2>
         <select
           value={profile?.language}
-          onChange={(e) => {/* TODO: update language */}}
+          onChange={() => {/* TODO: update language */}}
           className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ora-teal"
         >
           <option value="en">English</option>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate, useLocation } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { readingsAPI, walletAPI } from '../api/client'
 import RitualDeck from '../components/RitualDeck'
 import { Axe, SelectedCard, PaywallData, ReadingType } from '../types'
@@ -15,7 +15,6 @@ const readingConfigs: Record<string, { name: string; cardCount: number; descript
 export default function Reading() {
   const { type } = useParams<{ type: ReadingType }>()
   const navigate = useNavigate()
-  const location = useLocation()
   const config = type ? readingConfigs[type] : null
 
   const [step, setStep] = useState<'question' | 'axes' | 'ritual' | 'result'>('question')
