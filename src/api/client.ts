@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 const API_URL = import.meta.env.VITE_API_URL || 'https://ora-production-0850.up.railway.app'
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
