@@ -63,6 +63,18 @@ export const adminAPI = {
     apiFetch('/admin/config'),
 }
 
+// Wallet API
+export const walletAPI = {
+  getStatus: () =>
+    apiFetch('/wallet/status'),
+  
+  spendCredits: (amount: number) =>
+    apiFetch('/wallet/spend', {
+      method: 'POST',
+      body: JSON.stringify({ amount }),
+    }),
+}
+
 // Feedback API
 export const feedbackAPI = {
   submit: (data: { type: string; message: string; rating?: number }) =>

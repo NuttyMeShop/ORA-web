@@ -19,48 +19,71 @@ export default function Layout() {
               </Link>
             </div>
             
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 md:space-x-4">
               {token ? (
                 <>
                   <Link
                     to="/"
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    className={`px-2 md:px-3 py-2 rounded-md text-sm font-medium ${
                       isActive('/') ? 'text-ora-teal bg-ora-ivory' : 'text-gray-600 hover:text-ora-teal'
                     }`}
                   >
-                    Home
+                    <span className="hidden md:inline">Readings</span>
+                    <span className="md:hidden">🏠</span>
+                  </Link>
+                  <Link
+                    to="/journey"
+                    className={`px-2 md:px-3 py-2 rounded-md text-sm font-medium ${
+                      isActive('/journey') ? 'text-ora-teal bg-ora-ivory' : 'text-gray-600 hover:text-ora-teal'
+                    }`}
+                  >
+                    <span className="hidden md:inline">Journey</span>
+                    <span className="md:hidden">🛤️</span>
                   </Link>
                   <Link
                     to="/history"
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    className={`px-2 md:px-3 py-2 rounded-md text-sm font-medium ${
                       isActive('/history') ? 'text-ora-teal bg-ora-ivory' : 'text-gray-600 hover:text-ora-teal'
                     }`}
                   >
-                    History
+                    <span className="hidden md:inline">History</span>
+                    <span className="md:hidden">📜</span>
+                  </Link>
+                  <Link
+                    to="/preferences"
+                    className={`px-2 md:px-3 py-2 rounded-md text-sm font-medium ${
+                      isActive('/preferences') ? 'text-ora-teal bg-ora-ivory' : 'text-gray-600 hover:text-ora-teal'
+                    }`}
+                  >
+                    <span className="hidden md:inline">Settings</span>
+                    <span className="md:hidden">⚙️</span>
                   </Link>
                   <Link
                     to="/feedback"
-                    className={`px-3 py-2 rounded-md text-sm font-medium ${
+                    className={`px-2 md:px-3 py-2 rounded-md text-sm font-medium ${
                       isActive('/feedback') ? 'text-ora-teal bg-ora-ivory' : 'text-gray-600 hover:text-ora-teal'
                     }`}
                   >
-                    Feedback
+                    <span className="hidden md:inline">Feedback</span>
+                    <span className="md:hidden">💬</span>
                   </Link>
                   {isAdmin && (
                     <Link
                       to="/admin"
-                      className={`px-3 py-2 rounded-md text-sm font-medium ${
+                      className={`px-2 md:px-3 py-2 rounded-md text-sm font-medium ${
                         isActive('/admin') ? 'text-ora-teal bg-ora-ivory' : 'text-gray-600 hover:text-ora-teal'
                       }`}
                     >
-                      Admin
+                      <span className="hidden md:inline">Admin</span>
+                      <span className="md:hidden">🔒</span>
                     </Link>
                   )}
                   <button
                     onClick={logout}
-                    className="px-3 py-2 rounded-md text-sm font-medium text-ora-terracotta hover:bg-red-50"
+                    className="px-2 md:px-3 py-2 rounded-md text-sm font-medium text-ora-terracotta hover:bg-red-50"
                   >
-                    Logout
+                    <span className="hidden md:inline">Logout</span>
+                    <span className="md:hidden">🚪</span>
                   </button>
                 </>
               ) : (

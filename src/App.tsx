@@ -7,6 +7,8 @@ import Register from './pages/Register'
 import Reading from './pages/Reading'
 import History from './pages/History'
 import Profile from './pages/Profile'
+import Preferences from './pages/Preferences'
+import Journey from './pages/Journey'
 import Admin from './pages/Admin'
 import Feedback from './pages/Feedback'
 import { useAuth } from './contexts/AuthContext'
@@ -33,6 +35,8 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="reading/:type" element={<PrivateRoute><Reading /></PrivateRoute>} />
           <Route path="history" element={<PrivateRoute><History /></PrivateRoute>} />
+          <Route path="journey" element={<PrivateRoute><Journey /></PrivateRoute>} />
+          <Route path="preferences" element={<PrivateRoute><Preferences /></PrivateRoute>} />
           <Route path="profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="feedback" element={<PrivateRoute><Feedback /></PrivateRoute>} />
           <Route path="admin/*" element={<AdminRoute><Admin /></AdminRoute>} />
