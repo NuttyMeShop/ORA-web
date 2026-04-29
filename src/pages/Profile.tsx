@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export default function Profile() {
-  const [, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // Load profile from API - TODO: implement
