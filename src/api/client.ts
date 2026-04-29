@@ -68,11 +68,38 @@ export const walletAPI = {
   getStatus: () =>
     apiFetch('/wallet/status'),
   
-  spendCredits: (amount: number) =>
-    apiFetch('/wallet/spend', {
+  checkReading: (readingType: string) =>
+    apiFetch('/wallet/check', {
       method: 'POST',
-      body: JSON.stringify({ amount }),
+      body: JSON.stringify({ readingType }),
     }),
+  
+  consumeReading: (readingType: string) =>
+    apiFetch('/wallet/consume', {
+      method: 'POST',
+      body: JSON.stringify({ readingType }),
+    }),
+}
+
+// User API
+export const userAPI = {
+  getPsychProfile: () =>
+    apiFetch('/user/psych-profile'),
+  
+  savePsychProfile: (data: any) =>
+    apiFetch('/user/psych-profile', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }),
+}
+
+// LifeMap API
+export const lifeMapAPI = {
+  getAnalysis: () =>
+    apiFetch('/readings/lifemap/analysis'),
+  
+  getEntries: () =>
+    apiFetch('/readings/lifemap'),
 }
 
 // Feedback API

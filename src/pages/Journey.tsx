@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { readingsAPI } from '../api/client'
+import { readingsAPI, lifeMapAPI } from '../api/client'
 import { MemoryPattern } from '../types'
 
 export default function Journey() {
@@ -14,14 +14,27 @@ export default function Journey() {
 
   const loadJourneyData = async () => {
     try {
-      // In real app, this would call /readings/lifemap/analysis
-      const historyData = await readingsAPI.getHistory()
+      // Try to get real analysis from backend
+      const [lifeMapData, historyData] = await Promise.all([
+        lifeMapAPI.getAnalysis().catch(() => null),
+        readingsAPI.getHistory(),
+      ])
       
-      // Calculate patterns from history
       const readings = historyData.readings || []
-      const calculatedPatterns = calculatePatterns(readings)
       
-      setPatterns(calculatedPatterns)
+      // Use backend analysis if available, otherwise calculate locally
+      if (lifeMapData?.patterns) {
+        setPatterns(lifeMapData.patterns.map((p: any) => ({
+          type: p.type,
+          description: p.description,
+          frequency: p.frequency || 1,
+        })))
+      } else {
+        // Fallback: calculate patterns from history
+        const calculatedPatterns = calculatePatterns(readings)
+        setPatterns(calculatedPatterns)
+      }
+      
       setStats({
         totalReadings: readings.length,
         mostCommonType: getMostCommonType(readings),

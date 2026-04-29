@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { walletAPI, authAPI } from '../api/client'
+import { walletAPI, userAPI } from '../api/client'
 import { PsychProfile } from '../types'
 
 export default function Preferences() {
@@ -21,28 +21,32 @@ export default function Preferences() {
 
   const loadProfile = async () => {
     try {
-      const [walletData, userData] = await Promise.all([
+      const [walletData, psychData] = await Promise.all([
         walletAPI.getStatus(),
-        // In real app, this would be a dedicated user profile endpoint
-        Promise.resolve({ email: 'user@example.com', name: 'User', language: 'en' }),
+        userAPI.getPsychProfile().catch(() => null), // Graceful fallback
       ])
       
       setProfile({
-        email: userData.email,
-        name: userData.name,
-        plan: walletData.plan_type || 'FREE',
-        credits: walletData.credits_remaining || 0,
-        language: userData.language,
+        email: walletData.email || 'user@example.com',
+        name: walletData.name || 'User',
+        plan: walletData.plan || 'FREE',
+        credits: walletData.credits || 0,
+        language: walletData.language || 'en',
       })
       
-      // Mock psych profile - in real app this comes from backend
-      setPsychProfile({
-        fear: 'instability',
-        pattern: 'overthinking',
-        value: 'growth',
-        risk: 'medium',
-        focus: 'career',
-      })
+      // Use real psych profile from backend if available
+      if (psychData?.profile) {
+        setPsychProfile(psychData.profile)
+      } else {
+        // Fallback mock for demo
+        setPsychProfile({
+          fear: 'instability',
+          pattern: 'overthinking',
+          value: 'growth',
+          risk: 'medium',
+          focus: 'career',
+        })
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to load profile')
     } finally {

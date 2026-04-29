@@ -138,14 +138,35 @@ export default function Reading() {
   }
 
   const handleUnlock = async () => {
-    if (!paywall) return
+    if (!paywall || !type) return
+    
+    setLoading(true)
+    setError('')
     
     try {
-      await walletAPI.spendCredits(paywall.paywall.cost || 1)
+      // Check if user can afford the reading
+      const checkResult = await walletAPI.checkReading(type.toUpperCase())
+      
+      if (!checkResult.allowed) {
+        setError('Not enough credits or limit reached')
+        setLoading(false)
+        return
+      }
+      
+      // Consume the reading
+      await walletAPI.consumeReading(type.toUpperCase())
+      
+      // Unlock the reading
       setPaywall(null)
       setInterpretation(paywall.fullInterpretation)
+      
+      // Update credits display
+      const walletData = await walletAPI.getStatus()
+      setCredits(walletData.credits || 0)
     } catch (err: any) {
       setError(err.message || 'Failed to unlock reading')
+    } finally {
+      setLoading(false)
     }
   }
 
